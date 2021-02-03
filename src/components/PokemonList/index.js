@@ -1,7 +1,7 @@
 import React from "react";
 import Pokemon from "../Pokemon";
 
-import { Buttons, Container } from "./styles";
+import { Container } from "./styles";
 
 const PokemonList = ({ pokemons }) => {
   const renderedList = pokemons.map((pokemon) => {
