@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { baseColors } from "../../styles/Colors";
 
 export const Container = styled.div`
-  top: 0;
-  background: #d15c56;
-  padding: 10px;
+  background: ${baseColors.primary};
+  height: 5rem;
   display: flex;
   align-items: center;
 `;
@@ -16,4 +17,12 @@ export const Logo = styled.img`
   width: 30px;
   height: 30px;
   margin: 15px;
+`;
+
+export const CustomLink = styled(Link)`
+  display: inherit;
+  align-items: inherit;
+  max-width: 1320px;
+  margin: 0 auto;
+  flex: 1;
 `;

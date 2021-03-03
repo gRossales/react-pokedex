@@ -1,6 +1,6 @@
 import React from "react";
-
-import { Container, Image, Name, Types, Type, typeColors } from "./styles";
+import { typeColors } from "../../styles/Colors";
+import { Container, Image, Name, Types, Type } from "./styles";
 
 const Pokemon = ({ data }) => {
   return (
@@ -10,7 +10,10 @@ const Pokemon = ({ data }) => {
       <Types>
         {data.types.map((type) => {
           return (
-            <Type style={{ background: typeColors[type.type.name] }}>
+            <Type
+              style={{ background: typeColors[type.type.name] }}
+              key={type.type.name}
+            >
               {type.type.name}
             </Type>
           );

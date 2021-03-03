@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import API from "../apis/poke";
 
 const usePokemon = () => {
   const [previousUrl, setPreviousUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   const [pokemons, setPokemonsData] = useState([]);
+  const [url, setUrl] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const loadPokemons = async (data) => {
     let pokemons = await Promise.all(
@@ -17,30 +19,34 @@ const usePokemon = () => {
     setPokemonsData(pokemons);
   };
 
-  const getPage = async (url) => {
+  const getPage = useCallback(async () => {
+    setLoading(true);
     const { data } = await API.get(url);
-    console.log(data);
     await loadPokemons(data.results);
 
     setNextUrl(data.next);
     setPreviousUrl(data.previous);
-
-    console.log(pokemons);
-  };
+    setLoading(false);
+  }, [url]);
 
   useEffect(() => {
-    getPage(previousUrl);
+    console.log("MOUNTING HOOK");
   }, []);
+
+  useEffect(() => {
+    getPage();
+    return function cleanup() {};
+  }, [getPage]);
 
   const setPokemons = (direction) => {
     if (direction === "next") {
-      getPage(nextUrl);
+      setUrl(nextUrl);
     } else {
-      getPage(previousUrl);
+      setUrl(previousUrl);
     }
   };
 
-  return [pokemons, setPokemons];
+  return [[...pokemons], setPokemons, loading];
 };
 
 export default usePokemon;

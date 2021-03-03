@@ -1,48 +1,51 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import { GlobalStyles } from "./styles/GlobalStyles";
-import { Button, ButtonsWrapper } from "./styles/AppStyle";
-import usePokemon from "./hooks/usePokemon";
 import PokemonList from "./components/PokemonList";
+import PokemonDetail from "./components/PokemonDetail";
+import usePokemon from "./hooks/usePokemon";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [pokemons, setPokemons] = usePokemon();
+  const [pokemons, setPokemons, loading] = usePokemon();
 
   useEffect(() => {
     setPokemons("");
   }, []);
 
-  useEffect(() => {
-    setLoading(false);
-  }, [pokemons]);
+  useEffect(() => {}, [loading]);
+
+  const onPageChange = (direction) => {
+    if (direction === "next") {
+      setPokemons("next");
+    } else {
+      setPokemons("previous");
+    }
+  };
 
   return (
-    <>
+    <BrowserRouter>
       <GlobalStyles />
       <NavBar />
-
-      {loading ? <h1>Loading...</h1> : <PokemonList pokemons={pokemons} />}
-
-      <ButtonsWrapper>
-        <Button
-          onClick={() => {
-            setLoading(true);
-            setPokemons("previous");
-          }}
-        >
-          Previus
-        </Button>
-        <Button
-          onClick={() => {
-            setLoading(true);
-            setPokemons("next");
-          }}
-        >
-          Next
-        </Button>
-      </ButtonsWrapper>
-    </>
+      <Switch>
+        <Route
+          path="/"
+          exact
+          component={() => (
+            <PokemonList
+              pokemons={pokemons}
+              onPageChange={onPageChange}
+              loading={loading}
+            />
+          )}
+        />
+        <Route
+          path="/pokemon/:id"
+          exact
+          render={(props) => <PokemonDetail {...props} />}
+        />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

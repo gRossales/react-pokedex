@@ -1,13 +1,15 @@
 import React from "react";
 import LogoSrc from "../../assets/logo.png";
 
-import { Container, Header, Logo } from "./styles";
+import { Container, Header, Logo, CustomLink } from "./styles";
 
-const NavBar = () => {
+const NavBar = (props) => {
   return (
     <Container>
-      <Logo src={LogoSrc} />
-      <Header>PokeDex</Header>
+      <CustomLink to="/">
+        <Logo src={LogoSrc} />
+        <Header>PokeDex</Header>
+      </CustomLink>
     </Container>
   );
 };
