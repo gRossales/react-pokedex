@@ -1,51 +1,26 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import { GlobalStyles } from "./styles/GlobalStyles";
 import PokemonList from "./components/PokemonList";
 import PokemonDetail from "./components/PokemonDetail";
-import usePokemon from "./hooks/usePokemon";
+import usePokemon from './hooks/usePokemon';
+import { GlobalStyle } from "./styles/global";
+
 
 const App = () => {
   const [pokemons, setPokemons, loading] = usePokemon();
-
-  useEffect(() => {
-    setPokemons("");
-  }, []);
-
-  useEffect(() => {}, [loading]);
-
-  const onPageChange = (direction) => {
-    if (direction === "next") {
-      setPokemons("next");
-    } else {
-      setPokemons("previous");
-    }
-  };
-
   return (
-    <BrowserRouter>
-      <GlobalStyles />
+    <>
+      <GlobalStyle />
       <NavBar />
       <Switch>
-        <Route
-          path="/"
-          exact
-          component={() => (
-            <PokemonList
-              pokemons={pokemons}
-              onPageChange={onPageChange}
-              loading={loading}
-            />
-          )}
-        />
-        <Route
-          path="/pokemon/:id"
-          exact
-          render={(props) => <PokemonDetail {...props} />}
-        />
+        <Route path="/" exact>
+          <PokemonList pokemons={pokemons}  setPokemons={setPokemons} loading={loading} />
+        </Route>
+        <Route path="/pokemon/:id">
+          <PokemonDetail />
+        </Route>
       </Switch>
-    </BrowserRouter>
+    </>
   );
 };
 

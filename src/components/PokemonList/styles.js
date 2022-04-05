@@ -1,35 +1,65 @@
 import styled from "styled-components";
-import { baseColors } from "../../styles/Colors";
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: repeat(5,200px);
+  grid-template-rows: auto 213px 213px auto 80px;
+  grid-template-areas:
+  "none none none none none"
+  "pokemon1 pokemon2 pokemon3 pokemon4 pokemon5"
+  "pokemon6 pokemon7 pokemon8 pokemon9 pokemon10"
+  ". . . . ."
+  "footer footer footer footer footer";
+  place-items: center;
+  justify-content: center;
+  align-content: stretch;
+  gap: 1.5rem;
   max-width: 1320px;
   margin: 0 auto;
-`;
 
-export const ListWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 16px 0px 8px 0px;
-  a {
-    text-decoration: none;
+  @media (max-width: 1160px) {
+    grid-template-columns: repeat(3,200px);
+    grid-template-rows: auto repeat(4,213px) 80px;
+    grid-template-areas:
+    "none none none"
+    "pokemon1 pokemon2 pokemon3" 
+    "pokemon4 pokemon5 pokemon6" 
+    "pokemon7 pokemon8 pokemon9" 
+    ". pokemon10 ."
+    "footer footer footer";
+  }
+  @media (max-width: 750px) {
+    grid-template-columns: repeat(3,150px);
+    grid-template-rows: auto repeat(4,168px) 80px;
+  }
+  @media (max-width: 550px) {
+    grid-template-columns: repeat(2,150px);
+    grid-template-rows: auto repeat(5,168px) 80px;
+    grid-template-areas:
+    "none none"
+    "pokemon1 pokemon2" 
+    "pokemon3 pokemon4" 
+    "pokemon5 pokemon6" 
+    "pokemon7 pokemon8" 
+    "pokemon9 pokemon10"
+    "footer footer";
   }
 `;
 
 export const Button = styled.button`
-  @media (min-width: 600px) {
-    margin-inline: 32px;
-  }
-`;
-
-export const ButtonsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  @media (min-width: 600px) {
-    justify-content: space-between;
+  grid-area: footer;
+  grid-column: 1;
+  justify-self: start;
+  & + &{
+    grid-area: footer;
+    grid-column: 5;
+    justify-self: end;
+    @media (max-width: 1160px) {
+      grid-column: 3;
+    }
+    @media (max-width: 550px) {
+      grid-column: 2;
+    }
   }
 `;

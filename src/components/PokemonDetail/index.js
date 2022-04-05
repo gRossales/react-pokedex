@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Container,
   InnerContainer,
-  Image,
-  Name,
   Types,
   Type,
   BodyStats,
-  BodyStatsWrapper,
-  Button,
+  StyledLink,
   StatsWrapper,
   StatsRow,
   StatsBarContainer,
@@ -17,29 +14,22 @@ import {
   statsColors,
   Wrapper,
 } from "./styles";
-import { typeColors } from "../../styles/Colors";
 import API from "../../apis/poke";
 
-const PokemonDetail = ({ location }) => {
-  console.log("LOCATION ", location);
+const PokemonDetail = () => {
   const { id } = useParams();
-  const [pokemon, setPokemon] = useState(location.pokemon);
+  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
-    let isMounted = true;
     console.log("MOUNT DETAILS");
     const loadPokemon = async (id) => {
       let pokemonData = await (await API.get(id)).data;
-      if (isMounted) {
-        setPokemon(pokemonData);
-      }
+      setPokemon(pokemonData);
     };
     if (!pokemon) {
+      console.log("loading POKEMON!!!!")
       loadPokemon(id);
     }
-    return function cleanup() {
-      isMounted = false;
-    };
   }, []);
 
   if (!pokemon) {
@@ -50,14 +40,14 @@ const PokemonDetail = ({ location }) => {
     <Container>
       <InnerContainer>
         <Wrapper>
-          <Image src={pokemon.sprites.front_default} />
-          <Name>{pokemon.name}</Name>
+          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+          <h3>{pokemon.name}</h3>
           <Types>
             {pokemon.types.map((type) => {
               return (
                 <Type
                   key={type.type.name}
-                  style={{ background: typeColors[type.type.name] }}
+                  background={"--" + type.type.name}
                 >
                   {type.type.name}
                 </Type>
@@ -65,13 +55,13 @@ const PokemonDetail = ({ location }) => {
             })}
           </Types>
           <BodyStats>
-            <BodyStatsWrapper>
+            <div>
               <h4>{pokemon.height / 10} m</h4> <h4>{pokemon.weight / 10} kg</h4>
-            </BodyStatsWrapper>
-            <BodyStatsWrapper>
+            </div>
+            <div>
               <h5>Height</h5>
               <h5>Weight</h5>
-            </BodyStatsWrapper>
+            </div>
           </BodyStats>
         </Wrapper>
         <StatsWrapper>
@@ -83,18 +73,15 @@ const PokemonDetail = ({ location }) => {
                 <h5>{stat.stat.name}</h5>
                 <StatsBarContainer>
                   <StatsBar
-                    style={{
-                      width: `${percent}%`,
-                      background: statsColors[stat.stat.name],
-                    }}
-                  >
+                      width={`${percent}%`}
+                      background={"--"+stat.stat.name}>
                     <p
                       style={
                         percent < 16
                           ? {
-                              position: "relative",
-                              right: "-7ch",
-                            }
+                            position: "relative",
+                            right: "-7ch",
+                          }
                           : null
                       }
                     >
@@ -107,9 +94,7 @@ const PokemonDetail = ({ location }) => {
           })}
         </StatsWrapper>
       </InnerContainer>
-      <Button>
-        <Link to="/">Back</Link>
-      </Button>
+      <StyledLink to="/">Back</StyledLink>
     </Container>
   );
 };

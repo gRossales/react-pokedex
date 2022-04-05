@@ -1,8 +1,8 @@
-import React from "react";
-import { typeColors } from "../../styles/Colors";
+import React, {memo} from "react";
+
 import { Container, Image, Name, Types, Type } from "./styles";
 
-const Pokemon = ({ data }) => {
+const Pokemon = memo(({ data }) => {
   return (
     <Container>
       <Image src={data.sprites.front_default} />
@@ -11,7 +11,7 @@ const Pokemon = ({ data }) => {
         {data.types.map((type) => {
           return (
             <Type
-              style={{ background: typeColors[type.type.name] }}
+              background={"--"+type.type.name}
               key={type.type.name}
             >
               {type.type.name}
@@ -21,6 +21,8 @@ const Pokemon = ({ data }) => {
       </Types>
     </Container>
   );
-};
+}, (prevProps, nextProps)=>{
+  return prevProps.data.name === nextProps.data.name;
+});
 
 export default Pokemon;

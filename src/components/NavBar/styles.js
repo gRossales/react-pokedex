@@ -1,17 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { baseColors } from "../../styles/Colors";
 
-export const Container = styled.div`
-  background: ${baseColors.primary};
+export const Container = styled.header`
+  background: var(--background);
   height: 5rem;
   display: flex;
   align-items: center;
-`;
-
-export const Header = styled.h1`
   color: #fff;
 `;
+
 
 export const Logo = styled.img`
   width: 30px;

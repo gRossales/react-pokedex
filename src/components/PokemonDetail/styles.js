@@ -1,66 +1,52 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
+
 
 export const Container = styled.div`
   display: flex;
-  flex: 1;
-  height: 100vh- 2rem;
+  height: calc(100vh - 5rem);
   flex-direction: column;
   justify-content: center;
+  align-items: space-between;
   max-width: 1320px;
-  margin: 1rem auto;
+  margin: 0 auto;
 `;
 
 export const InnerContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   justify-content: center;
   @media (min-width: 900px) {
-    flex-direction: row;
+    grid-template-columns: 1fr 2fr ;  
     margin-top: 10rem;
   }
-`;
-
-export const Image = styled.img`
-  align-self: center;
-  width: 96px;
-  height: 96px;
-  @media (min-width: 600px) {
-    width: 128px;
-    height: 128px;
-  }
-`;
-
-export const Name = styled.h4`
-  color: #000;
-  text-transform: capitalize;
-  font-weight: bold;
-  text-align: center;
 `;
 
 export const BodyStats = styled.div`
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-`;
-
-export const BodyStatsWrapper = styled.div`
-  margin-top: 5px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  h5 {
-    color: #222;
-    font-weight: 500;
+  div {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    h5 {
+      color: #222;
+      font-weight: 500;
+    }  
   }
 `;
+
 
 export const Type = styled.div`
   padding: 5px 10px;
   margin: 10px 0px 10px 0px;
   border-radius: 5px;
-  background: cyan;
+  background: var(${props=> (props.background)});
   color: #fff;
   font-size: 14px;
+  font-weight: bold ;
 `;
 
 export const Types = styled.div`
@@ -73,6 +59,21 @@ export const Wrapper = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  h3 {
+    color: #000;
+    text-transform: capitalize;
+    font-weight: bold;
+    text-align: center;
+  }
+  img {
+    align-self: center;
+    width: 96px;
+    height: 96px;
+    @media (min-width: 600px) {
+      width: 128px;
+      height: 128px;
+    }
+  }
 `;
 
 export const StatsWrapper = styled.div`
@@ -99,8 +100,9 @@ export const StatsBarContainer = styled.div`
 export const StatsBar = styled.div`
   border-radius: 10px;
   height: 20px;
+  width: ${props=> props.width};
   display: flex;
-  background: #a00;
+  background: var(${props=> props.background});
   align-items: center;
   justify-content: end;
   p {
@@ -121,16 +123,29 @@ export const StatsRow = styled.div`
   text-transform: uppercase;
 `;
 
-export const statsColors = {
-  hp: "#FF5959",
-  attack: "#F5AC78",
-  defense: "#FAE078",
-  "special-attack": "#9DB7F5",
-  "special-defense": "#A7DB8D",
-  speed: "#FA92B2",
-};
+// export const statsColors = {
+//   hp: "#FF5959",
+//   attack: "#F5AC78",
+//   defense: "#FAE078",
+//   "special-attack": "#9DB7F5",
+//   "special-defense": "#A7DB8D",
+//   speed: "#FA92B2",
+// };
 
-export const Button = styled.button`
-  position: absolute;
-  bottom: 2rem;
+export const StyledLink = styled(Link)`
+  bottom: 1rem;  
+  text-align: center ;
+  cursor:pointer;
+  background-color: var(--background);
+  color: #fff;
+  font-weight: 500;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  width: 150px;
+  border: none;
+  margin: auto 0 2rem 1rem ;
+  transition: filter 0.2s ;
+  &:hover{
+    filter: brightness(1.3);
+  }
 `;

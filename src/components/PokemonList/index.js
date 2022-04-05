@@ -1,40 +1,37 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Pokemon from "../Pokemon";
-import { Container, ListWrapper, ButtonsWrapper, Button } from "./styles";
+import { Container, Button } from "./styles";
 
-const PokemonList = ({ pokemons, onPageChange, loading }) => {
-  useEffect(() => {}, []);
+const PokemonList = ({pokemons, setPokemons, loading}) => {
+  
+  useEffect(() => {
+    console.log("mounting pokemon list");
+    return ()=> console.log("unmounting pokemon list");
+  },[])
 
-  const renderedList = pokemons?.map((pokemon) => {
+  const renderedList = pokemons?.map((pokemon,index) => {
     return (
       <Link
         to={{ pathname: `/pokemon/${pokemon.id}`, pokemon }}
         key={pokemon.id}
+        style={{"gridArea": `pokemon${index+1}`}}
       >
         <Pokemon data={pokemon} />
       </Link>
     );
-  });
+  })
+
   return (
     <Container>
-      <ListWrapper>{loading ? <h1>Loading...</h1> : renderedList}</ListWrapper>
-      <ButtonsWrapper>
-        <Button
-          onClick={() => {
-            onPageChange("previous");
-          }}
-        >
-          Previus
-        </Button>
-        <Button
-          onClick={() => {
-            onPageChange("next");
-          }}
-        >
-          Next
-        </Button>
-      </ButtonsWrapper>
+      {loading ? <h1>Loading...</h1> : renderedList}
+
+      <Button onClick={() => setPokemons("previous")}>
+        Previous
+      </Button>
+      <Button onClick={() => setPokemons("next")}>
+        Next
+      </Button>
     </Container>
   );
 };
