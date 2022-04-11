@@ -31,7 +31,7 @@ export const GlobalStyle = createGlobalStyle`
 
   --primary: #D15C56;
   --secondary: #AF3731;
-  --background: #871812;
+  --background: #B71C1C;
 }
 
 *{
@@ -69,7 +69,7 @@ button{
 
   transition: filter 0.2s;
   &:hover{
-    filter: brightness(1.3);
+    filter: brightness(1.2);
   }
 }
 

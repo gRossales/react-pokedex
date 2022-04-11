@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import {
   Container,
   InnerContainer,
@@ -8,26 +8,23 @@ import {
   BodyStats,
   StyledLink,
   StatsWrapper,
-  StatsRow,
-  StatsBarContainer,
-  StatsBar,
-  statsColors,
   Wrapper,
 } from "./styles";
 import API from "../../apis/poke";
+import StatsBar from '../StatsBar';
 
 const PokemonDetail = () => {
   const { id } = useParams();
-  const [pokemon, setPokemon] = useState(null);
+  let location = useLocation();
+
+  const [pokemon, setPokemon] = useState(location.state || null);
 
   useEffect(() => {
-    console.log("MOUNT DETAILS");
     const loadPokemon = async (id) => {
       let pokemonData = await (await API.get(id)).data;
       setPokemon(pokemonData);
     };
     if (!pokemon) {
-      console.log("loading POKEMON!!!!")
       loadPokemon(id);
     }
   }, []);
@@ -67,29 +64,8 @@ const PokemonDetail = () => {
         <StatsWrapper>
           <h4>Base Stats</h4>
           {pokemon.stats.map((stat) => {
-            const percent = stat.base_stat / 3;
             return (
-              <StatsRow key={stat.stat.name}>
-                <h5>{stat.stat.name}</h5>
-                <StatsBarContainer>
-                  <StatsBar
-                      width={`${percent}%`}
-                      background={"--"+stat.stat.name}>
-                    <p
-                      style={
-                        percent < 16
-                          ? {
-                            position: "relative",
-                            right: "-7ch",
-                          }
-                          : null
-                      }
-                    >
-                      {stat.base_stat}/300
-                    </p>
-                  </StatsBar>
-                </StatsBarContainer>
-              </StatsRow>
+              <StatsBar key={stat.stat.name} name={stat.stat.name} value={stat.base_stat} />
             );
           })}
         </StatsWrapper>

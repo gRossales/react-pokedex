@@ -38,6 +38,7 @@ export const Name = styled.h4`
   text-transform: capitalize;
   font-weight: bold;
   text-align: center;
+  letter-spacing:0.5px;
 `;
 
 export const Type = styled.div`
@@ -46,8 +47,10 @@ export const Type = styled.div`
   border-radius: 5px;
   background: var(${props=> (props.background)});
   color: #fff;
-  font-size: 14px;
-  font-weight: bold ;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  letter-spacing: 1px;
 `;
 
 export const Types = styled.div`

@@ -43,10 +43,12 @@ export const Type = styled.div`
   padding: 5px 10px;
   margin: 10px 0px 10px 0px;
   border-radius: 5px;
-  background: var(${props=> (props.background)});
+  background: var(${props => (props.background)});
   color: #fff;
-  font-size: 14px;
+  font-size: 0.875rem;
+  text-transform: capitalize;
   font-weight: bold ;
+  letter-spacing: 1px;
 `;
 
 export const Types = styled.div`
@@ -64,6 +66,7 @@ export const Wrapper = styled.div`
     text-transform: capitalize;
     font-weight: bold;
     text-align: center;
+    letter-spacing: 0.5px;
   }
   img {
     align-self: center;
@@ -85,52 +88,7 @@ export const StatsWrapper = styled.div`
   h4 {
     font-weight: bold;
   }
-  h5 {
-    color: #555;
-  }
 `;
-
-export const StatsBarContainer = styled.div`
-  border-radius: 10px;
-  height: 20px;
-  background: #ddd;
-  flex: 1;
-`;
-
-export const StatsBar = styled.div`
-  border-radius: 10px;
-  height: 20px;
-  width: ${props=> props.width};
-  display: flex;
-  background: var(${props=> props.background});
-  align-items: center;
-  justify-content: end;
-  p {
-    margin-inline: 5px;
-    color: #111;
-    text-align: end;
-    font-weight: 600;
-    font-size: 10px;
-    text-transform: uppercase;
-  }
-`;
-
-export const StatsRow = styled.div`
-  margin-top: 5px;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  text-transform: uppercase;
-`;
-
-// export const statsColors = {
-//   hp: "#FF5959",
-//   attack: "#F5AC78",
-//   defense: "#FAE078",
-//   "special-attack": "#9DB7F5",
-//   "special-defense": "#A7DB8D",
-//   speed: "#FA92B2",
-// };
 
 export const StyledLink = styled(Link)`
   bottom: 1rem;  
